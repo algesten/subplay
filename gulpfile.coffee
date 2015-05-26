@@ -2,6 +2,7 @@ gulp       = require 'gulp'
 coffee     = require 'gulp-coffee'
 gutil      = require 'gulp-util'
 browserify = require 'gulp-browserify'
+uglify     = require 'gulp-uglify'
 
 paths =
   coffee: './src/**/*.coffee'
@@ -19,8 +20,8 @@ gulp.task 'coffee', ->
 gulp.task 'package', ->
   gulp.src './lib/index.js'
     .pipe browserify
-      insertGlobals: true
-      debug: false
+      standalone: 'subplay'
+    .pipe uglify()
     .pipe gulp.dest './'
 
 
