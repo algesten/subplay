@@ -1,0 +1,29 @@
+{
+  "name": "subplay",
+  "version": "1.0.0",
+  "description": "A simple subtitle (.srt) parser/player",
+  "scripts": {
+    "prepublish": "gulp"
+  },  
+  "main": "lib/index.js",
+  "author": "Martin Algesten <martin@algesten.se>",
+  "license": "MIT",
+  "dependencies": {
+    "subtitles-parser": "0.0.2"
+  },
+  "devDependencies": {
+    "coffee-script": "^1.9.2",
+    "gulp": "^3.8.11",
+    "gulp-browserify": "^0.5.1",
+    "gulp-coffee": "^2.3.1",
+    "gulp-util": "^3.0.4"
+  },
+  "keywords": [
+    "subtitle",
+    "closed",
+    "caption",
+    "srt",
+    "player",
+    "parser"
+  ]
+}
