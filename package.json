@@ -4,7 +4,11 @@
   "description": "A simple subtitle (.srt) parser/player",
   "scripts": {
     "prepublish": "gulp"
-  },  
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/algesten/subplay"
+  },
   "main": "lib/index.js",
   "author": "Martin Algesten <martin@algesten.se>",
   "license": "MIT",
