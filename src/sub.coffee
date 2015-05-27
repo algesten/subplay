@@ -27,7 +27,7 @@ locate = (data, ms, pos, checkPrev = true) ->
     # if the distance of previous entry is better
     # than the current, we must have skipped back in time
     # this results in a full scan from the beginning
-    locate data, ms, 0, false if pred? and pred < curd
+    return locate data, ms, 0, false if pred? and pred < curd
   # check if next entry's distance is better than the one
   # we're at, in which case we move on.
   nxt = data[pos + 1]
@@ -84,6 +84,9 @@ sub = (srt, renderer, opts = {}) ->
       return
     else if ms < entry.startTime
       if entry != current
+        # remove current if there is any (there shouldn't be)
+        if current
+          render 0, '', null
         # schedule a future render entry
         render entry.startTime - ms, entry.text, entry
     else if ms < entry.endTime
