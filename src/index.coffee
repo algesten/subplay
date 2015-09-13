@@ -49,9 +49,10 @@ sub = (srt, renderer, opts = {}) ->
   pos = 0        # position in data array
   current = null # the currently showing entry (if any)
   timeout = null # timeout to fire the next renderer
+  lastExtern = 0 # the last time we got an external update
 
   # the update function returned to caller
-  update = (time, inmillis = opts.millis) ->
+  update = (time, inmillis = opts.millis, selftrig = false) ->
 
     ms = if inmillis then time else time * 1000
 
@@ -60,6 +61,9 @@ sub = (srt, renderer, opts = {}) ->
 
     # remember current time
     t = Date.now()
+
+    # update timestamp we got external update (unless self triggered)
+    lastExtern = t unless selftrig
 
     # call renderer after wait time with entry.
     render = (wait, text, entry) ->
@@ -70,8 +74,10 @@ sub = (srt, renderer, opts = {}) ->
         # render this text
         renderer(text)
         current = entry
-        # schedule next event
-        update ms + (Date.now() - t) + 5, true
+        # schedule next event, but only keep this up 5 sec
+        # after last external update
+        if (Date.now() - lastExtern) < 5000
+            update ms + (Date.now() - t) + 5, true, true
       , wait
 
     # every time we get an update, we cancel the current timer
