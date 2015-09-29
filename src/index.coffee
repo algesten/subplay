@@ -1,7 +1,5 @@
 parser     = require 'subtitles-parser'
 
-getVideoTag = -> document.getElementsByTagName('video')?[0]
-
 merge   = (t, os...) -> t[k] = v for k,v of o when v != undefined for o in os; t
 
 isstring = (t) -> typeof t == 'string'
