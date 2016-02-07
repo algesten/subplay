@@ -31,6 +31,8 @@ var srt = fs.readFileSync('./mysubs.srt', 'utf-8');
 var update = subplay(srt, function(text) {
     // text is either an (html formatted) text
     // or '' when clearing
+    // example of updating a div using jQuery
+    $('#mysubholder').html(text);
 });
 
 // pass the current time to the update function which
