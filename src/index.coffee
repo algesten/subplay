@@ -59,7 +59,7 @@ sub = (srt, renderer, opts = {}) ->
   lastExtern = 0 # the last time we got an external update
 
   # the update function returned to caller
-  update = (time, inmillis = opts.millis, selftrig = false) ->
+  update = (time, inmillis = opts.millis, selftrig = false, isplaying = true) ->
 
     ms = if inmillis then time else time * 1000
 
@@ -74,6 +74,7 @@ sub = (srt, renderer, opts = {}) ->
 
     # call renderer after wait time with entry.
     render = (wait, text, entry) ->
+      if !isplaying and wait > 0 then return # video is on pause - time is not running, no point in setting a timeout
       timeout = setTimeout ->
         # insert a sneaky '' if we got a render for next event before
         # the clearing of the previous
