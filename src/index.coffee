@@ -17,6 +17,14 @@ distance = (ms, e) ->
 # locate the current or next entry in the data array. pos is a suggested
 # position
 locate = (data, ms, pos, checkPrev = true) ->
+  if pos == undefined
+    # we might be past the last entry's endTime, let's make sure
+    [..., last] = data
+    if distance ms, last == undefined
+      return undefined # indeed we are, so don't bother locating
+    else
+      pos = 0 # start over
+      checkPrev = false
   cur = data[pos]
   curd = distance ms, cur
   if checkPrev and curd?
@@ -28,6 +36,7 @@ locate = (data, ms, pos, checkPrev = true) ->
     return locate data, ms, 0, false if pred? and pred < curd
   # check if next entry's distance is better than the one
   # we're at, in which case we move on.
+  if !curd? and (pos + 1) >= data.length then return undefined # we are past the last entry
   nxt = data[pos + 1]
   nxtd = distance ms, nxt
   if !curd? or nxtd < curd then locate(data, ms, pos + 1, false) else pos
@@ -86,6 +95,8 @@ sub = (srt, renderer, opts = {}) ->
     if ms < 0
       # negative time means we stop doing the rendering
       return
+    else if pos == undefined # we are past the last entry
+      render 0, '', null
     else if ms < entry.startTime
       if entry != current
         # remove current if there is any (there shouldn't be)
