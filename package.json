@@ -1,6 +1,6 @@
 {
   "name": "subplay",
-  "version": "1.1.1",
+  "version": "1.2.1",
   "description": "A simple subtitle (.srt) parser/player",
   "scripts": {
     "prepublish": "gulp"
@@ -9,7 +9,7 @@
     "type": "git",
     "url": "https://github.com/algesten/subplay"
   },
-  "main": "lib/index.js",
+  "main": "index.js",
   "author": "Martin Algesten <martin@algesten.se>",
   "license": "MIT",
   "dependencies": {
